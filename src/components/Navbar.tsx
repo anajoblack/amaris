@@ -572,11 +572,11 @@ export default function Navbar() {
 
           {/* Drawer Bottom Footer (Repurposed Top Bar Info) */}
           <div
-            className="mt-auto p-6 bg-[#532DF5] text-white space-y-3"
+            className="mt-auto p-6 bg-[#3b12ea] text-white space-y-3"
             style={{
               marginTop: 'auto',
-              padding: '20px 24px',
-              backgroundColor: '#532DF5',
+              padding: '24px',
+              backgroundColor: '#3b12ea',
               backgroundImage: "url('/wp-content/uploads/2023/04/original-topbar-bg.jpg')",
               backgroundPosition: 'center',
               backgroundSize: 'cover',
@@ -589,12 +589,12 @@ export default function Navbar() {
           >
             {/* Quote */}
             <p
-              className="text-xs italic text-white/85 leading-snug"
+              className="text-xs italic text-white/80 leading-snug"
               style={{
-                fontSize: '11px',
+                fontSize: '12px',
                 fontStyle: 'italic',
-                color: 'rgba(255, 255, 255, 0.85)',
-                lineHeight: 1.45,
+                color: 'rgba(255, 255, 255, 0.8)',
+                lineHeight: 1.4,
                 margin: 0,
               }}
             >
@@ -604,12 +604,12 @@ export default function Navbar() {
             {/* Clickable Direct Phone */}
             <a
               href="tel:+18482137670"
-              className="hover:underline flex items-center gap-2"
+              className="hover:underline flex items-center gap-2 text-sm font-semibold text-white"
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                fontSize: '13px',
+                fontSize: '14px',
                 fontWeight: 600,
                 color: '#ffffff',
                 textDecoration: 'none',
@@ -621,13 +621,13 @@ export default function Navbar() {
 
             {/* Locations */}
             <div
-              className="flex items-start gap-2 text-xs text-white/75"
+              className="flex items-start gap-2.5 text-xs text-white/70"
               style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '8px',
-                fontSize: '11px',
-                color: 'rgba(255, 255, 255, 0.75)',
+                gap: '10px',
+                fontSize: '12px',
+                color: 'rgba(255, 255, 255, 0.7)',
                 lineHeight: 1.4,
               }}
             >
