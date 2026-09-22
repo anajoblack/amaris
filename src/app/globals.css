@@ -315,6 +315,146 @@ button {
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Top Utility Bar (Responsive: Hidden on mobile < 768px)
+───────────────────────────────────────────────────────────── */
+.top-utility-bar {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .top-utility-bar {
+    display: block !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Main Navigation Header & Mobile Sizing
+───────────────────────────────────────────────────────────── */
+.navbar-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .navbar-container {
+    height: 84px;
+    padding: 0 24px;
+    border-bottom: none;
+  }
+}
+
+.navbar-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .navbar-logo-img {
+    height: 36px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-logo-img {
+    height: 42px;
+  }
+}
+
+/* Mobile Actions & Booking Button */
+.mobile-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-booking-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background-color: #10b981;
+  color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-booking-btn:hover {
+  background-color: #059669;
+}
+
+.mobile-hamburger-btn {
+  padding: 8px;
+  border-radius: 8px;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-hamburger-btn:hover {
+  background-color: #f3f4f6;
+}
+
+/* Mobile Flyout Drawer & Backdrop */
+.mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1040;
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.mobile-drawer-flyout {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  max-width: 320px;
+  background-color: #ffffff;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
 .topbar-link {
   transition: opacity 0.2s ease;
 }

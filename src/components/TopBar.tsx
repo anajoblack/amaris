@@ -4,6 +4,7 @@ import { Phone, MapPin } from 'lucide-react';
 export default function TopBar() {
   return (
     <div
+      className="top-utility-bar hidden md:flex"
       style={{
         backgroundColor: '#532DF5',
         backgroundImage: "url('/wp-content/uploads/2023/04/original-topbar-bg.jpg')",
