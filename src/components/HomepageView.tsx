@@ -35,7 +35,7 @@ export default function HomepageView() {
       {/* ─────────────────────────────────────────────────────────────
           2. A SHORT "WHO HE IS" INTRODUCTION
       ───────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#ffffff', padding: '100px 0 90px 0', borderBottom: '1px solid #eaedf0' }}>
+      <section id="about" style={{ backgroundColor: '#ffffff', padding: '100px 0 90px 0', borderBottom: '1px solid #eaedf0' }}>
         <div className="container">
           <div
             style={{
@@ -142,7 +142,7 @@ export default function HomepageView() {
       {/* ─────────────────────────────────────────────────────────────
           3. HIS WORLD OF WORK (6 Key Professional Pillars)
       ───────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#F8FCFC', padding: '90px 0', borderBottom: '1px solid #eaedf0' }}>
+      <section id="offerings" style={{ backgroundColor: '#F8FCFC', padding: '90px 0', borderBottom: '1px solid #eaedf0' }}>
         <div className="container">
           <div style={{ maxWidth: '720px', margin: '0 auto 60px auto', textAlign: 'center' }}>
             <span className="section-subtitle">Strategic Disciplines</span>
@@ -555,7 +555,7 @@ export default function HomepageView() {
       {/* ─────────────────────────────────────────────────────────────
           6. THE PERSONAL BRAND — BEYOND THE BOARDROOM
       ───────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#ffffff', padding: '100px 0', borderBottom: '1px solid #eaedf0' }}>
+      <section id="powerread" style={{ backgroundColor: '#ffffff', padding: '100px 0', borderBottom: '1px solid #eaedf0' }}>
         <div className="container">
           <div style={{ maxWidth: '750px', margin: '0 auto 60px auto', textAlign: 'center' }}>
             <span className="section-subtitle">A Cohesive Personal Brand</span>
@@ -796,7 +796,7 @@ export default function HomepageView() {
       {/* ─────────────────────────────────────────────────────────────
           7. FEATURED IMPACT (Actual Philanthropic Categories & Media)
       ───────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#F8FCFC', padding: '100px 0' }}>
+      <section id="gallery" style={{ backgroundColor: '#F8FCFC', padding: '100px 0' }}>
         <div className="container">
           <div
             style={{
@@ -1100,7 +1100,7 @@ export default function HomepageView() {
       {/* ─────────────────────────────────────────────────────────────
           9. LATEST INSIGHTS — EXECUTIVE PERSPECTIVES FEED
       ───────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#F8FCFC', padding: '100px 0' }}>
+      <section id="news" style={{ backgroundColor: '#F8FCFC', padding: '100px 0' }}>
         <div className="container">
           <div
             style={{
@@ -1256,6 +1256,7 @@ export default function HomepageView() {
           10. FINAL CALL TO ACTION — EXECUTIVE COMMITMENT
       ───────────────────────────────────────────────────────────── */}
       <section
+        id="contact"
         style={{
           backgroundColor: '#070707',
           color: '#ffffff',
@@ -1263,6 +1264,7 @@ export default function HomepageView() {
           borderTop: '1px solid #1a1a1a',
         }}
       >
+        <div id="book" />
         <div className="container" style={{ maxWidth: '820px', textAlign: 'center' }}>
           <span
             style={{

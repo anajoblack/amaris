@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ChevronDown, Menu, X, Phone, MapPin } from 'lucide-react';
 
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -19,7 +19,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -27,15 +27,16 @@ export default function Navbar() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen]);
+  }, [isOpen]);
 
   const toggleDropdown = (name: string) => {
     setActiveDropdown(activeDropdown === name ? null : name);
   };
 
   return (
-    <header
-      className="navbar-header sticky top-0 z-50 bg-white/95 backdrop-blur-md"
+    <>
+      <header
+        className="navbar-header sticky top-0 z-50 bg-white/95 backdrop-blur-md"
       style={{
         position: 'sticky',
         top: 0,
@@ -321,7 +322,7 @@ export default function Navbar() {
             Booking
           </Link>
           <button
-            onClick={() => setMobileMenuOpen(true)}
+            onClick={() => setIsOpen(true)}
             className="mobile-hamburger-btn p-2 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none flex items-center justify-center"
             aria-label="Open Navigation Menu"
           >
@@ -329,213 +330,80 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+    </header>
 
-      {/* Mobile Drawer / Full-Screen High-End Overlay */}
-      {mobileMenuOpen && (
-        <div
-          className="mobile-fullscreen-overlay fixed inset-0 z-50 bg-[#0a0a0c] text-white flex flex-col justify-between overflow-y-auto px-6 py-6 transition-all duration-300"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile Navigation Menu"
-        >
-          {/* Top Bar inside drawer */}
-          <div className="flex items-center justify-between pb-6 border-b border-white/10 w-full">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center"
-            >
-              <Image
-                src="/images/logogo_AdEt.png"
-                alt="Dr. Amaris Perbi"
-                width={140}
-                height={36}
-                className="h-8 w-auto object-contain brightness-0 invert"
-                priority
-              />
-            </Link>
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition focus:outline-none"
-              aria-label="Close Navigation Menu"
-            >
-              <X size={20} />
-            </button>
+    {/* Guaranteed full-screen portal/fixed drawer */}
+    {isOpen && (
+      <div className="fixed inset-0 z-[999] flex flex-col bg-slate-950 text-white w-screen h-[100dvh] overflow-y-auto">
+        {/* Drawer Top Bar */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 shrink-0">
+          <div className="h-8 flex items-center">
+            {/* Logo */}
+            <span className="font-extrabold text-lg tracking-wider text-white">DR. AMARIS PERBI</span>
           </div>
+          {/* Close Button */}
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white text-xl hover:bg-white/20 transition"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+        </div>
 
-          {/* Main Navigation Links (Clean & Prominent) */}
-          <div className="flex flex-col space-y-5 py-8">
-            {/* Meet Dr. Amaris Accordion */}
-            <div className="flex flex-col">
-              <button
-                type="button"
-                onClick={() => toggleDropdown('mobile-meet')}
-                className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group w-full text-left"
+        {/* Scrollable Navigation Body */}
+        <div className="flex-1 px-6 py-8 flex flex-col justify-between">
+          {/* 1. Main Navigation Links */}
+          <nav className="flex flex-col space-y-5">
+            {[
+              { label: "Meet Dr. Amaris", href: "#about" },
+              { label: "Offerings", href: "#offerings" },
+              { label: "PowerRead™", href: "#powerread" },
+              { label: "Music", href: "#music" },
+              { label: "Gallery", href: "#gallery" },
+              { label: "News", href: "#news" },
+              { label: "Contact", href: "#contact" },
+            ].map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-bold tracking-tight text-white hover:text-emerald-400 transition flex items-center justify-between"
               >
-                <span>Meet Dr. Amaris</span>
-                <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                  {activeDropdown === 'mobile-meet' ? '↓' : '→'}
-                </span>
-              </button>
-              {activeDropdown === 'mobile-meet' && (
-                <div className="pl-4 mt-3 space-y-3 border-l border-white/10 flex flex-col">
-                  <Link
-                    href="/about-us"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
-                  >
-                    About Dr. Amaris Perbi
-                  </Link>
-                  <Link
-                    href="/philanthropist"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
-                  >
-                    Philanthropist &amp; Impact
-                  </Link>
-                </div>
-              )}
-            </div>
+                <span>{item.label}</span>
+                <span className="text-zinc-600 text-base">→</span>
+              </a>
+            ))}
+          </nav>
 
-            {/* Offerings Accordion */}
-            <div className="flex flex-col">
-              <button
-                type="button"
-                onClick={() => toggleDropdown('mobile-offerings')}
-                className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group w-full text-left"
-              >
-                <span>Offerings</span>
-                <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                  {activeDropdown === 'mobile-offerings' ? '↓' : '→'}
-                </span>
-              </button>
-              {activeDropdown === 'mobile-offerings' && (
-                <div className="pl-4 mt-3 space-y-3 border-l border-white/10 flex flex-col">
-                  <Link
-                    href="/expertise/services"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
-                  >
-                    Strategic Advisory Services
-                  </Link>
-                  <Link
-                    href="/expertise/speaking-media-conference"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
-                  >
-                    Speaking, Media &amp; Conferences
-                  </Link>
-                  <Link
-                    href="/expertise/trainings-programs"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
-                  >
-                    Training &amp; Programs (70+)
-                  </Link>
-                  <Link
-                    href="/books-powerread"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
-                  >
-                    Books &amp; PowerRead
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <Link
-              href="/books-powerread"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
-            >
-              <span>PowerRead™</span>
-              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
-
-            <Link
-              href="/music"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
-            >
-              <span>Music</span>
-              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
-
-            <Link
-              href="/gallery"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
-            >
-              <span>Gallery</span>
-              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
-
-            <Link
-              href="/blog"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
-            >
-              <span>News</span>
-              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
-
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
-            >
-              <span>Contact</span>
-              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </Link>
-          </div>
-
-          {/* Integrated Contact & Quote Card (Directly Below the Nav List) */}
-          <div className="drawer-contact-card mt-4 p-5 rounded-2xl bg-gradient-to-br from-indigo-950/60 to-purple-950/40 border border-indigo-500/20 backdrop-blur-md space-y-4">
-            {/* The Quote */}
-            <p className="text-xs italic text-indigo-200/80 leading-relaxed border-l-2 border-indigo-400 pl-3 m-0">
+          {/* 2. Contact & Quote Info Card (Directly Below Nav List) */}
+          <div className="mt-10 p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-4 shrink-0">
+            <blockquote className="text-xs italic text-zinc-300 border-l-2 border-emerald-400 pl-3 leading-relaxed">
               &ldquo;Learn as if you will live forever, live like you will die tomorrow.&rdquo;
-            </p>
+            </blockquote>
 
-            {/* Click-to-Call Direct Phone */}
-            <a
-              href="tel:+18482137670"
-              className="flex items-center gap-3 text-sm font-semibold text-white hover:text-emerald-400 transition"
-            >
-              <div className="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0">
-                <Phone size={14} />
+            <div className="space-y-2 pt-2 border-t border-white/10 text-xs">
+              <a href="tel:+18482137670" className="flex items-center gap-2.5 text-white hover:text-emerald-400 font-medium">
+                <span>📞</span>
+                <span>+1 848 213 7670</span>
+              </a>
+              <div className="flex items-center gap-2.5 text-zinc-400">
+                <span>📍</span>
+                <span>Princeton, New Jersey, USA & Accra, Ghana</span>
               </div>
-              <span>+1 848 213 7670</span>
-            </a>
-
-            {/* Location Pin */}
-            <div className="flex items-center gap-3 text-xs text-zinc-400">
-              <div className="w-8 h-8 rounded-full bg-white/5 text-zinc-400 flex items-center justify-center shrink-0">
-                <MapPin size={14} />
-              </div>
-              <span>Princeton, New Jersey, USA &amp; Accra, Ghana</span>
             </div>
 
-            {/* Mobile Drawer CTA */}
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition"
+            <a
+              href="#book"
+              onClick={() => setIsOpen(false)}
+              className="w-full py-3.5 mt-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-center block text-sm transition"
             >
-              Book Dr. Perbi &rarr;
-            </Link>
+              Book Dr. Perbi
+            </a>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    )}
+  </>
   );
 }

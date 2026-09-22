@@ -656,5 +656,24 @@ button {
   }
 }
 
+/* Fallbacks for guaranteed mobile full-screen drawer */
+.bg-slate-950 {
+  background-color: #020617 !important;
+}
+
+.z-\[999\] {
+  z-index: 999 !important;
+}
+
+.w-screen {
+  width: 100vw !important;
+}
+
+.h-\[100dvh\] {
+  height: 100dvh !important;
+  height: 100vh;
+}
+
+
 
 
