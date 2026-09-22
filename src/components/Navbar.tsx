@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronDown, Menu, X, Phone, MapPin } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -18,38 +18,29 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
   const toggleDropdown = (name: string) => {
     setActiveDropdown(activeDropdown === name ? null : name);
   };
 
   return (
-    <>
-      <header
-        className="navbar-header sticky top-0 z-50 bg-white/95 backdrop-blur-md"
+    <header
       style={{
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
+        backgroundColor: '#ffffff',
         boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.06)' : '0 1px 4px rgba(0,0,0,0.03)',
         transition: 'all 0.3s ease',
       }}
     >
       <div
-        className="container navbar-container h-16 md:h-[84px] px-4 md:px-6 flex items-center justify-between"
+        className="container"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: '84px',
+        }}
       >
         {/* Brand Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
@@ -58,7 +49,11 @@ export default function Navbar() {
             alt="Dr. Amaris Perbi"
             width={160}
             height={43}
-            className="navbar-logo-img h-8 sm:h-9 md:h-11 w-auto object-contain"
+            style={{
+              height: '42px',
+              width: 'auto',
+              objectFit: 'contain',
+            }}
             priority
           />
         </Link>
@@ -313,97 +308,125 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Mobile Actions Group (Booking + Hamburger) */}
-        <div className="mobile-toggle mobile-actions-group flex items-center gap-2.5">
+        {/* Mobile Hamburger Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="mobile-toggle">
           <Link
             href="/contact"
-            className="mobile-booking-btn text-xs font-semibold px-3.5 py-1.5 rounded-full bg-[#10b981] hover:bg-[#059669] text-white transition-colors shadow-sm"
+            className="btn-primary"
+            style={{
+              fontSize: '13px',
+              padding: '8px 18px',
+              borderRadius: '50px',
+              fontWeight: 600,
+            }}
           >
             Booking
           </Link>
           <button
-            onClick={() => setIsOpen(true)}
-            className="mobile-hamburger-btn p-2 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none flex items-center justify-center"
-            aria-label="Open Navigation Menu"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              padding: '8px',
+              color: '#070707',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            aria-label="Toggle Navigation Menu"
           >
-            <Menu size={24} className="w-6 h-6" />
+            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
-    </header>
 
-    {/* Guaranteed full-screen portal/fixed drawer */}
-    {isOpen && (
-      <div className="fixed inset-0 z-[999] flex flex-col bg-slate-950 text-white w-screen h-[100dvh] overflow-y-auto">
-        {/* Drawer Top Bar */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 shrink-0">
-          <div className="h-8 flex items-center">
-            {/* Logo */}
-            <span className="font-extrabold text-lg tracking-wider text-white">DR. AMARIS PERBI</span>
-          </div>
-          {/* Close Button */}
-          <button 
-            onClick={() => setIsOpen(false)}
-            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white text-xl hover:bg-white/20 transition"
-            aria-label="Close menu"
-          >
-            ✕
-          </button>
-        </div>
-
-        {/* Scrollable Navigation Body */}
-        <div className="flex-1 px-6 py-8 flex flex-col justify-between">
-          {/* 1. Main Navigation Links */}
-          <nav className="flex flex-col space-y-5">
-            {[
-              { label: "Meet Dr. Amaris", href: "#about" },
-              { label: "Offerings", href: "#offerings" },
-              { label: "PowerRead™", href: "#powerread" },
-              { label: "Music", href: "#music" },
-              { label: "Gallery", href: "#gallery" },
-              { label: "News", href: "#news" },
-              { label: "Contact", href: "#contact" },
-            ].map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="text-2xl font-bold tracking-tight text-white hover:text-emerald-400 transition flex items-center justify-between"
+      {/* Mobile Slide-out Drawer */}
+      {mobileMenuOpen && (
+        <div
+          style={{
+            backgroundColor: '#ffffff',
+            borderTop: '1px solid #f0f0f0',
+            padding: '20px 24px',
+            maxHeight: 'calc(100vh - 120px)',
+            overflowY: 'auto',
+          }}
+          className="mobile-drawer"
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {/* Meet Dr. Amaris Accordion */}
+            <div>
+              <div
+                onClick={() => toggleDropdown('mobile-meet')}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontWeight: 600,
+                  padding: '8px 0',
+                  cursor: 'pointer',
+                }}
               >
-                <span>{item.label}</span>
-                <span className="text-zinc-600 text-base">→</span>
-              </a>
-            ))}
-          </nav>
-
-          {/* 2. Contact & Quote Info Card (Directly Below Nav List) */}
-          <div className="mt-10 p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-4 shrink-0">
-            <blockquote className="text-xs italic text-zinc-300 border-l-2 border-emerald-400 pl-3 leading-relaxed">
-              &ldquo;Learn as if you will live forever, live like you will die tomorrow.&rdquo;
-            </blockquote>
-
-            <div className="space-y-2 pt-2 border-t border-white/10 text-xs">
-              <a href="tel:+18482137670" className="flex items-center gap-2.5 text-white hover:text-emerald-400 font-medium">
-                <span>📞</span>
-                <span>+1 848 213 7670</span>
-              </a>
-              <div className="flex items-center gap-2.5 text-zinc-400">
-                <span>📍</span>
-                <span>Princeton, New Jersey, USA & Accra, Ghana</span>
+                <span>Meet Dr. Amaris</span>
+                <ChevronDown size={18} />
               </div>
+              {activeDropdown === 'mobile-meet' && (
+                <div style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '6px' }}>
+                  <Link href="/about-us" onClick={() => setMobileMenuOpen(false)}>About Dr. Amaris Perbi</Link>
+                  <Link href="/philanthropist" onClick={() => setMobileMenuOpen(false)}>Philanthropist</Link>
+                </div>
+              )}
             </div>
 
-            <a
-              href="#book"
-              onClick={() => setIsOpen(false)}
-              className="w-full py-3.5 mt-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-center block text-sm transition"
+            {/* Offerings Accordion */}
+            <div>
+              <div
+                onClick={() => toggleDropdown('mobile-offerings')}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontWeight: 600,
+                  padding: '8px 0',
+                  cursor: 'pointer',
+                }}
+              >
+                <span>Offerings</span>
+                <ChevronDown size={18} />
+              </div>
+              {activeDropdown === 'mobile-offerings' && (
+                <div style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '6px' }}>
+                  <Link href="/expertise/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+                  <Link href="/expertise/speaking-media-conference" onClick={() => setMobileMenuOpen(false)}>Speaking, Media & Conferences</Link>
+                  <Link href="/expertise/trainings-programs" onClick={() => setMobileMenuOpen(false)}>Training & Programs</Link>
+                  <Link href="/books-powerread" onClick={() => setMobileMenuOpen(false)}>Books & PowerRead</Link>
+                </div>
+              )}
+            </div>
+
+            <Link href="/books-powerread" onClick={() => setMobileMenuOpen(false)} style={{ fontWeight: 600, padding: '8px 0' }}>
+              PowerRead™
+            </Link>
+
+            <Link href="/music" onClick={() => setMobileMenuOpen(false)} style={{ fontWeight: 600, padding: '8px 0' }}>
+              Music
+            </Link>
+
+            <Link
+              href="/gallery"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{ fontWeight: 600, padding: '8px 0' }}
             >
-              Book Dr. Perbi
-            </a>
+              Gallery
+            </Link>
+
+            <Link href="/blog" onClick={() => setMobileMenuOpen(false)} style={{ fontWeight: 600, padding: '8px 0' }}>
+              News
+            </Link>
+
+            <Link href="/contact" onClick={() => setMobileMenuOpen(false)} style={{ fontWeight: 600, padding: '8px 0' }}>
+              Contact
+            </Link>
           </div>
         </div>
-      </div>
-    )}
-  </>
+      )}
+    </header>
   );
 }
