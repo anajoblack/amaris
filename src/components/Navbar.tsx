@@ -330,183 +330,114 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer Backdrop Overlay */}
+      {/* Mobile Drawer / Full-Screen High-End Overlay */}
       {mobileMenuOpen && (
         <div
-          className="mobile-drawer-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-          onClick={() => setMobileMenuOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Mobile Drawer / Flyout Menu */}
-      {mobileMenuOpen && (
-        <div
-          className="mobile-drawer-flyout fixed inset-y-0 right-0 w-full sm:w-80 bg-white z-50 flex flex-col justify-between shadow-2xl"
+          className="mobile-fullscreen-overlay fixed inset-0 z-50 bg-[#0a0a0c] text-white flex flex-col justify-between overflow-y-auto px-6 py-6 transition-all duration-300"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation Menu"
         >
-          {/* Drawer Top Header (Logo & Close Button) */}
-          <div
-            style={{
-              padding: '16px 20px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              borderBottom: '1px solid #f1f5f9',
-            }}
-          >
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{ display: 'flex', alignItems: 'center' }}>
+          {/* Top Bar inside drawer */}
+          <div className="flex items-center justify-between pb-6 border-b border-white/10 w-full">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center"
+            >
               <Image
                 src="/images/logogo_AdEt.png"
                 alt="Dr. Amaris Perbi"
                 width={140}
                 height={36}
-                style={{ height: '30px', width: 'auto', objectFit: 'contain' }}
+                className="h-8 w-auto object-contain brightness-0 invert"
+                priority
               />
             </Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none flex items-center justify-center"
-              style={{ padding: '6px', borderRadius: '8px', color: '#374151' }}
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white transition focus:outline-none"
               aria-label="Close Navigation Menu"
             >
-              <X size={24} className="w-6 h-6" />
+              <X size={20} />
             </button>
           </div>
 
-          {/* Top / Center Area (Scrollable Navigation Links) */}
-          <div
-            className="flex-1 overflow-y-auto px-6 py-6 space-y-4"
-            style={{
-              flex: '1 1 auto',
-              overflowY: 'auto',
-              padding: '20px 24px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '14px',
-            }}
-          >
+          {/* Main Navigation Links (Clean & Prominent) */}
+          <div className="flex flex-col space-y-5 py-8">
             {/* Meet Dr. Amaris Accordion */}
-            <div>
-              <div
+            <div className="flex flex-col">
+              <button
+                type="button"
                 onClick={() => toggleDropdown('mobile-meet')}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  fontWeight: 600,
-                  fontSize: '15px',
-                  color: '#070707',
-                  padding: '8px 0',
-                  cursor: 'pointer',
-                }}
+                className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group w-full text-left"
               >
                 <span>Meet Dr. Amaris</span>
-                <ChevronDown
-                  size={18}
-                  style={{
-                    transform: activeDropdown === 'mobile-meet' ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.2s ease',
-                    opacity: 0.7,
-                  }}
-                />
-              </div>
+                <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                  {activeDropdown === 'mobile-meet' ? '↓' : '→'}
+                </span>
+              </button>
               {activeDropdown === 'mobile-meet' && (
-                <div
-                  style={{
-                    paddingLeft: '14px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                    marginTop: '6px',
-                    borderLeft: '2px solid #00C49B',
-                    marginLeft: '4px',
-                  }}
-                >
+                <div className="pl-4 mt-3 space-y-3 border-l border-white/10 flex flex-col">
                   <Link
                     href="/about-us"
                     onClick={() => setMobileMenuOpen(false)}
-                    style={{ fontSize: '14px', color: '#4b5563', fontWeight: 500 }}
+                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
                   >
                     About Dr. Amaris Perbi
                   </Link>
                   <Link
                     href="/philanthropist"
                     onClick={() => setMobileMenuOpen(false)}
-                    style={{ fontSize: '14px', color: '#4b5563', fontWeight: 500 }}
+                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
                   >
-                    Philanthropist
+                    Philanthropist &amp; Impact
                   </Link>
                 </div>
               )}
             </div>
 
             {/* Offerings Accordion */}
-            <div>
-              <div
+            <div className="flex flex-col">
+              <button
+                type="button"
                 onClick={() => toggleDropdown('mobile-offerings')}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  fontWeight: 600,
-                  fontSize: '15px',
-                  color: '#070707',
-                  padding: '8px 0',
-                  cursor: 'pointer',
-                }}
+                className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group w-full text-left"
               >
                 <span>Offerings</span>
-                <ChevronDown
-                  size={18}
-                  style={{
-                    transform: activeDropdown === 'mobile-offerings' ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.2s ease',
-                    opacity: 0.7,
-                  }}
-                />
-              </div>
+                <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                  {activeDropdown === 'mobile-offerings' ? '↓' : '→'}
+                </span>
+              </button>
               {activeDropdown === 'mobile-offerings' && (
-                <div
-                  style={{
-                    paddingLeft: '14px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                    marginTop: '6px',
-                    borderLeft: '2px solid #00C49B',
-                    marginLeft: '4px',
-                  }}
-                >
+                <div className="pl-4 mt-3 space-y-3 border-l border-white/10 flex flex-col">
                   <Link
                     href="/expertise/services"
                     onClick={() => setMobileMenuOpen(false)}
-                    style={{ fontSize: '14px', color: '#4b5563', fontWeight: 500 }}
+                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
                   >
-                    Services
+                    Strategic Advisory Services
                   </Link>
                   <Link
                     href="/expertise/speaking-media-conference"
                     onClick={() => setMobileMenuOpen(false)}
-                    style={{ fontSize: '14px', color: '#4b5563', fontWeight: 500 }}
+                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
                   >
-                    Speaking, Media & Conferences
+                    Speaking, Media &amp; Conferences
                   </Link>
                   <Link
                     href="/expertise/trainings-programs"
                     onClick={() => setMobileMenuOpen(false)}
-                    style={{ fontSize: '14px', color: '#4b5563', fontWeight: 500 }}
+                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
                   >
-                    Training & Programs
+                    Training &amp; Programs (70+)
                   </Link>
                   <Link
                     href="/books-powerread"
                     onClick={() => setMobileMenuOpen(false)}
-                    style={{ fontSize: '14px', color: '#4b5563', fontWeight: 500 }}
+                    className="text-base font-medium text-zinc-400 hover:text-white transition-colors"
                   >
-                    Books & PowerRead
+                    Books &amp; PowerRead
                   </Link>
                 </div>
               )}
@@ -515,125 +446,93 @@ export default function Navbar() {
             <Link
               href="/books-powerread"
               onClick={() => setMobileMenuOpen(false)}
-              style={{ fontWeight: 600, fontSize: '15px', color: '#070707', padding: '6px 0' }}
+              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
             >
-              PowerRead™
+              <span>PowerRead™</span>
+              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </Link>
 
             <Link
               href="/music"
               onClick={() => setMobileMenuOpen(false)}
-              style={{ fontWeight: 600, fontSize: '15px', color: '#070707', padding: '6px 0' }}
+              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
             >
-              Music
+              <span>Music</span>
+              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </Link>
 
             <Link
               href="/gallery"
               onClick={() => setMobileMenuOpen(false)}
-              style={{ fontWeight: 600, fontSize: '15px', color: '#070707', padding: '6px 0' }}
+              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
             >
-              Gallery
+              <span>Gallery</span>
+              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </Link>
 
             <Link
               href="/blog"
               onClick={() => setMobileMenuOpen(false)}
-              style={{ fontWeight: 600, fontSize: '15px', color: '#070707', padding: '6px 0' }}
+              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
             >
-              News
+              <span>News</span>
+              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </Link>
 
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              style={{ fontWeight: 600, fontSize: '15px', color: '#070707', padding: '6px 0' }}
+              className="text-2xl font-semibold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center justify-between group"
             >
-              Contact
+              <span>Contact</span>
+              <span className="text-sm text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </Link>
-
-            <div style={{ paddingTop: '10px' }}>
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="btn-primary"
-                style={{
-                  width: '100%',
-                  textAlign: 'center',
-                  fontSize: '14px',
-                  padding: '12px 20px',
-                  borderRadius: '50px',
-                }}
-              >
-                Book a Consultation
-              </Link>
-            </div>
           </div>
 
-          {/* Drawer Bottom Footer (Repurposed Top Bar Info) */}
-          <div
-            className="mt-auto p-6 bg-[#3b12ea] text-white space-y-3"
-            style={{
-              marginTop: 'auto',
-              padding: '24px',
-              backgroundColor: '#3b12ea',
-              backgroundImage: "url('/wp-content/uploads/2023/04/original-topbar-bg.jpg')",
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              color: '#ffffff',
-              borderTop: '1px solid rgba(255, 255, 255, 0.15)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-            }}
-          >
-            {/* Quote */}
-            <p
-              className="text-xs italic text-white/80 leading-snug"
-              style={{
-                fontSize: '12px',
-                fontStyle: 'italic',
-                color: 'rgba(255, 255, 255, 0.8)',
-                lineHeight: 1.4,
-                margin: 0,
-              }}
-            >
+          {/* Integrated Contact & Quote Card (Directly Below the Nav List) */}
+          <div className="drawer-contact-card mt-4 p-5 rounded-2xl bg-gradient-to-br from-indigo-950/60 to-purple-950/40 border border-indigo-500/20 backdrop-blur-md space-y-4">
+            {/* The Quote */}
+            <p className="text-xs italic text-indigo-200/80 leading-relaxed border-l-2 border-indigo-400 pl-3 m-0">
               &ldquo;Learn as if you will live forever, live like you will die tomorrow.&rdquo;
             </p>
 
-            {/* Clickable Direct Phone */}
+            {/* Click-to-Call Direct Phone */}
             <a
               href="tel:+18482137670"
-              className="hover:underline flex items-center gap-2 text-sm font-semibold text-white"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#ffffff',
-                textDecoration: 'none',
-              }}
+              className="flex items-center gap-3 text-sm font-semibold text-white hover:text-emerald-400 transition"
             >
-              <Phone size={14} style={{ color: '#00C49B', flexShrink: 0 }} />
+              <div className="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0">
+                <Phone size={14} />
+              </div>
               <span>+1 848 213 7670</span>
             </a>
 
-            {/* Locations */}
-            <div
-              className="flex items-start gap-2.5 text-xs text-white/70"
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '10px',
-                fontSize: '12px',
-                color: 'rgba(255, 255, 255, 0.7)',
-                lineHeight: 1.4,
-              }}
-            >
-              <MapPin size={14} style={{ color: '#00C49B', flexShrink: 0, marginTop: '2px' }} />
+            {/* Location Pin */}
+            <div className="flex items-center gap-3 text-xs text-zinc-400">
+              <div className="w-8 h-8 rounded-full bg-white/5 text-zinc-400 flex items-center justify-center shrink-0">
+                <MapPin size={14} />
+              </div>
               <span>Princeton, New Jersey, USA &amp; Accra, Ghana</span>
             </div>
+
+            {/* Mobile Drawer CTA */}
+            <Link
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition"
+            >
+              Book Dr. Perbi &rarr;
+            </Link>
           </div>
         </div>
       )}

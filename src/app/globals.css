@@ -421,31 +421,30 @@ button {
   background-color: #f3f4f6;
 }
 
-/* Mobile Flyout Drawer & Backdrop */
-.mobile-drawer-overlay {
+/* Mobile Full-Screen High-End Overlay & Contact Card */
+.mobile-fullscreen-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 1040;
-  animation: fadeIn 0.2s ease-out forwards;
-}
-
-.mobile-drawer-flyout {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  max-width: 320px;
-  background-color: #ffffff;
-  z-index: 1050;
+  z-index: 50;
+  background-color: #0a0a0c;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.15);
-  animation: slideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow-y: auto;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.drawer-contact-card {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(59, 7, 100, 0.4) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 @keyframes fadeIn {
