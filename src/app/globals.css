@@ -570,4 +570,92 @@ button {
   animation: heroTextFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   WhatsApp Floating Button (Positioning & Safe Areas)
+───────────────────────────────────────────────────────────── */
+.whatsapp-widget-container {
+  position: fixed;
+  right: 1.25rem; /* right-5 = 20px */
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .whatsapp-widget-container {
+    right: 2rem; /* sm:right-8 = 32px */
+    bottom: calc(2rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+.whatsapp-btn {
+  width: 3.5rem; /* 56px (w-14) */
+  height: 3.5rem; /* 56px (h-14) */
+  border-radius: 9999px;
+  background-color: #25D366;
+  color: #ffffff;
+  box-shadow: 0 20px 25px -5px rgba(2, 44, 34, 0.2), 0 8px 10px -6px rgba(2, 44, 34, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.whatsapp-btn:hover {
+  background-color: #20ba5a;
+  transform: scale(1.05);
+}
+
+.whatsapp-btn:active {
+  transform: scale(0.95);
+}
+
+.whatsapp-btn svg {
+  width: 1.75rem; /* 28px (w-7) */
+  height: 1.75rem; /* 28px (h-7) */
+  fill: currentColor;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Footer Structural Hierarchy & Flush Spacing
+───────────────────────────────────────────────────────────── */
+.site-footer {
+  width: 100%;
+  background-color: #020617; /* bg-slate-950 */
+  color: #94a3b8; /* text-slate-400 */
+  padding-top: 3rem; /* py-12 = 48px */
+  padding-bottom: 3rem;
+  padding-left: 1.5rem; /* px-6 = 24px */
+  padding-right: 1.5rem;
+  border-top: 1px solid #0f172a; /* border-slate-900 */
+}
+
+@media (min-width: 640px) {
+  .site-footer {
+    padding-left: 3rem; /* sm:px-12 = 48px */
+    padding-right: 3rem;
+  }
+}
+
+.footer-bottom-row {
+  padding-top: 2rem; /* pt-8 = 32px */
+  border-top: 1px solid rgba(15, 23, 42, 0.6); /* border-slate-900/60 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem; /* gap-4 */
+  font-size: 0.75rem; /* text-xs = 12px */
+}
+
+@media (min-width: 640px) {
+  .footer-bottom-row {
+    flex-direction: row;
+  }
+}
+
+
 
